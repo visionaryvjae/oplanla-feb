@@ -1,0 +1,42 @@
+        .rooms-display{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            height: auto;
+        }
+
+        .pagination-links {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+
+        .pagination li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .pagination li a,
+        .pagination li span {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            color: #AD68E4;
+            text-decoration: none;
+        }
+
+        .pagination li.active span {
+            background-color: #68E4AD;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .pagination li.disabled span {
+            color: #ccc;
+            cursor: not-allowed;
+        }

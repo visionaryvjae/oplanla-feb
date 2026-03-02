@@ -1,0 +1,238 @@
+.main-container{
+        display:flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width:100%;
+        height:auto;
+        padding-bottom: 5rem;
+        padding-left: 15rem;
+        padding-right: 14rem;
+    }
+
+    h2{
+        font-size:1.3rem;
+        font-weight:bold;
+        padding-top:1rem;
+        padding-bottom:0.5rem;
+    }
+
+    .title-container{
+       display: flex;
+        flex-direction: column;
+        justify-content:flex-end;
+        width: 100%;
+        padding:1rem 0.2rem; 
+    }
+
+    .title{
+        font-size: 2rem;
+        font-weight:bold;
+    }
+
+    .address-container{
+        display: flex; 
+        margin-top:0.2rem; 
+        flex-direction:row;
+    }
+
+    .location-img{
+        height:20px; 
+        width:20px; 
+        margin-right:0.2rem 
+    }
+
+    .below-title{
+        display:flex;
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center;
+        border-radius: 0.25rem;
+    }
+
+    .left-picture{
+        display:flex;
+        height:550px;
+        width:100%;
+        flex-direction: row;
+    }
+
+    .provider-img-container{
+        height: 100%;
+        width:73%;
+        padding:0.5rem 0rem 0.5rem 0rem;
+    }
+
+    .provider-img{
+        display: flex;
+        flex: 1;
+        height:100%;
+        border-radius: 0.3rem;;
+    }
+
+    .right-sidebar{
+        display:flex;
+        flex-direction: column;
+        width:27%;
+        height:100%;
+        margin: 0.3rem;
+    }
+
+    .map-container{
+        display:flex;
+        flex:3;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+        width:100%;
+        margin:0.25rem;
+        border-radius: 1.5%;
+        border: solid #aaa 1px;
+    }
+
+    .book-form{
+        display:flex; flex-direction:column; width:100%; height:100%; align-items:center; justify-content:center; padding: 0rem 1rem;       
+    }
+
+    .time-input{
+        display: flex; border: solid #666 1px; padding: 0.2rem; border-radius: 0.25rem; margin: 0.25rem; width: 85%;        
+    }
+
+    .time-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+
+    .btn-submit{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius: 0.3rem;
+        padding:0.5rem 1.5rem;
+        background-color:rgb(30,110,200);
+        color:#fff;
+    }
+    .btn-submit:hover{
+        opacity: 0.7;
+    }
+
+    .calendar-img{
+        height: 25px;
+        width: 25px;
+    }
+
+    .reviews{
+        display:flex;
+        flex:4;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+        width:100%;
+        margin:0.25rem;
+        border-radius: 1.5%;
+        background-color: rgb(200, 130, 200);
+    }
+
+    .map{
+        display:flex;
+        flex:3;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+        width:100%;
+        margin:0.25rem;
+        border-radius: 1.5%;
+        background-color:rgb(200, 130, 70);
+    }
+
+    .content-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    h2{
+        font-size:1.3rem;
+        font-weight:bold;
+        padding-top:1rem;
+        padding-bottom:0.5rem;
+    }
+
+    h3{
+        font-size:1rem;
+        font-weight:900;
+        padding-top:1rem;
+        padding-bottom:0.5rem;
+    }
+
+    .pargraph{
+        
+    }
+
+    .image-grid{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+
+    }
+    .image-grid-bottom{
+        display: flex;
+        height: 20%;
+        width: 100%;
+        flex: 1;
+    }
+
+    .table{
+        display: flex;
+        border-radius: 0.125rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table-header{
+        border-right: solid #fff 1px; padding: 0.4rem 1rem;
+    }
+
+    .table-head-row{
+        background-color: rgb(31 41 55);
+        color: #fff;
+    }
+
+    .rows{
+        border-right: solid #aaa 1px; padding: 0.4rem 1rem;
+        border-bottom: solid #aaa 1px; border-left: solid #aaa 1px;
+        border-radius: 0.3rem;
+    }
+
+    .data-rows:hover{
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    .rooms{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 100%;
+        padding: 2rem 0.5rem;
+    }
+
+    .button-container{
+        display: flex;
+        width:100%;
+        justify-content: flex-end;
+        align-items: flex-end;
+        padding: 0.2rem 0.4rem;
+    }
+
+    .date-container{
+        display: flex; width: 100%; margin: 0.5rem 0; padding:0.5rem 0.5rem; border:solid #666 2px; border-radius:0.5rem; background-color: rgb(250, 250, 250, 0.5);
+    }
+
+    .date-input{
+        display:flex; width:100%; padding:0.5rem 1rem; border:solid #666 2px; border-radius:0.5rem; background-color: rgb(250, 250, 250, 0.5); margin: 0 0.125rem;
+    }

@@ -1,0 +1,127 @@
+@extends('layouts.providers')
+
+@section('content')
+    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+            <form action="{{ route('provider.properties.index') }}" method="GET" class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                <div class="flex space-x-4">
+                    <div class="w-full">
+                        <label class="block text-xs font-medium text-gray-700 uppercase">Search</label>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Title or Description..." class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            Filter
+                        </button>
+                        <a href="{{ route('provider.properties.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-300 transition ease-in-out duration-150">
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <div class="flex flex-wrap items-center justify-between -mt-2 -ml-4">
+                    <div class="mt-2 ml-4">
+                        <h1 class="text-2xl font-bold text-gray-800">{{ $pagetitle }}</h1>
+                        <p class="mt-1 text-sm text-gray-600">Manage all property properties on the platform.</p>
+                    </div>
+                    <div class="mt-4 ml-4 flex-shrink-0">
+                        <a href="{{ route('provider.properties.create') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Add New property
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Session Messages --}}
+            @if(session('success'))
+                <div class="m-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">{{ session('success') }}</div>
+            @endif
+
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="shadow overflow-hidden border-b border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200 hidden md:table">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @forelse ($properties as $property)
+                                        <tr class="hover:bg-gray-50 cursor-pointer" onclick="window.location.href='{{ route('provider.properties.show', $property->id) }}'">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm font-medium text-gray-900">{{ $property->provider->provider_name }}</div>
+                                                <div class="text-sm text-gray-500">ID: {{ $property->id }}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 max-w-sm truncate">
+                                                {{ $property->name }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 max-w-sm truncate" title="{{ $property->address }}">
+                                                {{ $property->address }}
+                                            </td>
+                                            {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                                @if ($property->phone)
+                                                    {{ $property->phone }}
+                                                @else
+                                                    <a href="{{ route('provider.contact.create', $property->id) }}" class="text-indigo-600 hover:text-indigo-900" onclick="event.stopPropagation();">Add Contact</a>
+                                                @endif
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                                <a href="{{ route('image.index', $property->id) }}" class="text-indigo-600 hover:text-indigo-900" onclick="event.stopPropagation();">View Gallery</a>
+                                            </td> --}}
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="px-6 py-12 text-center text-sm text-gray-500">No properties found.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                            
+                            {{-- Card layout for mobile screens --}}
+                            <div class="grid grid-cols-1 gap-4 md:hidden px-4 pt-2">
+                                @forelse ($properties as $property)
+                                    <div class="bg-white p-4 rounded-lg border shadow-sm space-y-3 cursor-pointer" onclick="window.location.href='{{ route('provider.properties.show', $property->id) }}'">
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-800">{{ $property->name }}</p>
+                                            <p class="text-xs text-gray-500">ID: {{ $property->id }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Address</p>
+                                            <p class="text-sm text-gray-800 truncate">{{ $property->address }}</p>
+                                        </div>
+                                        <div class="flex justify-between items-center pt-2">
+                                            {{-- <div>
+                                                <p class="text-xs text-gray-500">Contact</p>
+                                                <p class="text-sm text-gray-800">
+                                                    @if ($property->phone)
+                                                        {{ $property->phone }}
+                                                    @else
+                                                        <a href="{{ route('provider.contact.create', $property->id) }}" class="text-indigo-600 hover:text-indigo-900" onclick="event.stopPropagation();">Add Contact</a>
+                                                    @endif
+                                                </p>
+                                            </div> --}}
+                                            {{-- <a href="{{ route('image.index', $property->id) }}" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium" onclick="event.stopPropagation();">View Gallery</a> --}}
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="py-4 px-6 text-center text-gray-500">
+                                        No properties found.
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
