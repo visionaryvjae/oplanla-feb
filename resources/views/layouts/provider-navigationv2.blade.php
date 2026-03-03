@@ -15,7 +15,7 @@
             
             <div class="hidden md:flex gap-1">
                 <div class="group relative">
-                    <button class="{{ request()->routeIs('provider.rooms*') || request()->routeIs('provider.enquiry*') || request()->routeIs('provider.enquiries*') || request()->routeIs('provider.properties*') || request()->routeIs('provider.meters*')? 'text-white bg-oplanla-green-dark' : 'text-black' }} px-4 py-2 rounded-md  font-medium hover:bg-white/20 transition flex items-center gap-2">
+                    <button class="{{ request()->routeIs('provider.rooms*') || request()->routeIs('provider.enquiry*') || request()->routeIs('provider.enquiries*') || request()->routeIs('provider.properties*') || request()->routeIs('provider.meters*') || request()->routeIs('provider.tenants*') ? 'text-white bg-oplanla-green-dark' : 'text-black' }} px-4 py-2 rounded-md  font-medium hover:bg-white/20 transition flex items-center gap-2">
                         Properties <i class="fa-solid fa-chevron-down text-xs"></i>
                     </button>
                     <div class="absolute hidden group-hover:block w-48 bg-white shadow-xl rounded-lg mt-1 border py-2 z-50">

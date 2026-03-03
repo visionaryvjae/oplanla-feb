@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\AdminEnquiryReplyNotification;
 use App\Models\Booking\TenantDocuments;
+use App\Notifications\UploadDocumentsNotification;
 
 class EnquiryResponseController extends Controller
 {
@@ -102,6 +103,8 @@ class EnquiryResponseController extends Controller
         $documents = TenantDocuments::create([
             'users_id' => $client->id,
         ]);
+
+        $client->notify(new UploadDocumentsNotification($documents));
 
         return back()->with('successfully sent document request');
     }

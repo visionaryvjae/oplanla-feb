@@ -3,6 +3,7 @@
 namespace App\Models\Booking;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class TenantDocuments extends Model
 {
@@ -21,6 +22,6 @@ class TenantDocuments extends Model
 
     public function tenant()
     {
-        $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(User::class, 'users_id');
     }
 }

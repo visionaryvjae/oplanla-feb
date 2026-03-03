@@ -62,7 +62,7 @@ Route::prefix('provider')->name('provider.')->group(function () {
         Route::post('/enquiry/{enquiry}/respond', [EnquiryResponseController::class, 'storeReply'])->name('enquiry.reply.store');
         Route::post('/enquiry/{enquiry}/potential-tenant', [EnquiryResponseController::class, 'markAsPotentialTenant'])->name('enquiry.mark.potential.tenant'); 
 
-        Route::post('enquiry/request-document-upload/{enquiryId}', [EnquiryController::class, 'requestDocuments'])->name('enquiry.request.documents.upload');
+        Route::post('enquiry/request-document-upload/{enquiryId}', [EnquiryResponseController::class, 'requestDocuments'])->name('enquiry.request.documents.upload');
     });
 
     
