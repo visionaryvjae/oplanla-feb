@@ -25,7 +25,7 @@ class MaintenanceController extends Controller
 
         $technicians = MaintenanceUser::all();
 
-        return view('providers.maintenance.tickets.form', ['job' => $job, 'ticket' => $ticket, 'users' => $technicians, 'action' => 'Create', 'actionUrl' => route('provider.maintenance.assign', $job->id)]);
+        return view('provider.maintenance.tickets.form', ['job' => $job, 'ticket' => $ticket, 'users' => $technicians, 'action' => 'Create', 'actionUrl' => route('provider.maintenance.assign', $job->id)]);
     }
 
     public function assignTicket(Request $request, MaintenanceJob $job)
@@ -35,10 +35,13 @@ class MaintenanceController extends Controller
         MaintenanceTicket::create([
             'maintenance_job_id' => $job->id,
             'maintenance_user_id' => $request->maintenance_user_id,
+            'earliest_start_date' => $request->input('earliest_start_date'),
+            'latest_completion_date' => $request->input('latest_completion_date'),
+            'tenant_estimate' => $request->input('tenant_estimate'),
             'started_at' => now(),
             'status' => 'in_progress'
         ]);
 
-        return redirect()->route('providers.maintenance.index')->with('success', 'Job assigned to maintenance staff.');
+        return redirect()->route('provider.maintenance.index')->with('success', 'Job assigned to maintenance staff.');
     }
 }

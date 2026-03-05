@@ -21,6 +21,7 @@ use App\Http\Controllers\Provider\PropertyController;
 use App\Http\Controllers\Provider\MeterController;
 use App\Http\Controllers\Provider\MaintenanceUserController;
 use App\Http\Controllers\Provider\TenantController;
+use App\Http\Controllers\Provider\PotentialTenantsController;
 
 
 // Provider Routes
@@ -64,6 +65,16 @@ Route::prefix('provider')->name('provider.')->group(function () {
 
         Route::post('enquiry/request-document-upload/{enquiryId}', [EnquiryResponseController::class, 'requestDocuments'])->name('enquiry.request.documents.upload');
     });
+
+    Route::prefix('potential-tenants')->name('potential-tenant.')->group(function() {
+        Route::get('', [PotentialTenantsController::class, 'index'])->name('index');
+        Route::get('{providerId}', [PotentialTenantsController::class, 'show'])->name('show');
+        Route::get('accept/{providerId}', [PotentialTenantsController::class, 'accept'])->name('accept');
+        Route::post('reject/{providerId}', [PotentialTenantsController::class, 'reject'])->name('reject');
+        Route::get('documents-show', [PotentialTenantsController::class, ''])->name('doc.show');
+    })->middleware(['auth:provider']);
+
+    Route::get('documents-show', [PotentialTenantsController::class, 'showDocument'])->name('doc.show')->middleware(['auth:provider']);
 
     
 

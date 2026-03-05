@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('comments')->nullable();
             $table->boolean('all_documents_verified')->default(false);
             $table->foreignId('users_id')->references('id')->on('users');
+            $table->foreignId('enquiry_id')->references('id')->on('enquiries');
             $table->enum('status',['pending', 'verified', 'rejected'])->default('pending');
             $table->timestamps();
         });

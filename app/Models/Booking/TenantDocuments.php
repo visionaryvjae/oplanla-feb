@@ -17,11 +17,17 @@ class TenantDocuments extends Model
         'comments',
         'all_documents_verified',
         'users_id',
+        'enquiry_id',
     ];
 
 
     public function tenant()
     {
         return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function enquiry()
+    {
+        return $this->belongsTo(Enquiry::class, 'enquiry_id');
     }
 }

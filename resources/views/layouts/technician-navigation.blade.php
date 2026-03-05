@@ -32,6 +32,9 @@
                     <a href="{{ route('technician.dashboard') }}" class="{{ request()->routeIs('technician.dashboard') ? $activeLinkClasses : $inactiveLinkClasses }}">
                         {{ __('Dashboard') }}
                     </a>
+                    <a href="{{ route('technician.tickets.index') }}" class="{{ request()->routeIs('technician.tickets*') ? $activeLinkClasses : $inactiveLinkClasses }}">
+                        {{ __('All Tickets') }}
+                    </a>
                     
                 </div>
             </div>

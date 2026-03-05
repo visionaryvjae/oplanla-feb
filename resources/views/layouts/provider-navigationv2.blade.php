@@ -15,7 +15,7 @@
             
             <div class="hidden md:flex gap-1">
                 <div class="group relative">
-                    <button class="{{ request()->routeIs('provider.rooms*') || request()->routeIs('provider.enquiry*') || request()->routeIs('provider.enquiries*') || request()->routeIs('provider.properties*') || request()->routeIs('provider.meters*') || request()->routeIs('provider.tenants*') ? 'text-white bg-oplanla-green-dark' : 'text-black' }} px-4 py-2 rounded-md  font-medium hover:bg-white/20 transition flex items-center gap-2">
+                    <button class="{{ request()->routeIs('provider.rooms*') || request()->routeIs('provider.enquiry*') || request()->routeIs('provider.enquiries*') || request()->routeIs('provider.properties*') || request()->routeIs('provider.meters*') || request()->routeIs('provider.tenants*') || request()->routeIs('provider.potential-tenant*') ? 'text-white bg-oplanla-green-dark' : 'text-black' }} px-4 py-2 rounded-md  font-medium hover:bg-white/20 transition flex items-center gap-2">
                         Properties <i class="fa-solid fa-chevron-down text-xs"></i>
                     </button>
                     <div class="absolute hidden group-hover:block w-48 bg-white shadow-xl rounded-lg mt-1 border py-2 z-50">
@@ -25,6 +25,7 @@
                         <a href="{{ route('provider.meters.index') }}" class="{{ request()->routeIs('provider.meters*') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Manage meters</a>
                         <a href="#" class="{{ request()->routeIs('') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Amenities</a>
                         <a href="{{ route('provider.tenants.index') }}" class="{{ request()->routeIs('provider.tenants*') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Tenants</a>
+                        <a href="{{ route('provider.potential-tenant.index') }}" class="{{ request()->routeIs('provider.potential-tenant*') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Potential Tenant Documents</a>
                     </div>
                 </div>
     

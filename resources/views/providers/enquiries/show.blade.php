@@ -102,15 +102,18 @@
             <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 space-y-4">
                 <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4">Actions</h3>
                 @if ($enquiry->user->documents)
-                    <button type="submit" class="w-full flex items-center justify-center px-4 py-3 border-2 font-bold rounded-lg border-[#33ea93] text-[#33ea93] transition-all">
-                        Sent document prompt
-                    </button>
+                    @if($enquiry->user->documents->all_documents_verified == 1)
+                        <button type="submit" class="w-full flex items-center justify-center px-4 py-3 border-2 font-bold rounded-lg bg-[#33ea93] text-white transition-all">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Documents uploaded and Verified
+                        </button>
 
-                @elseif($enquiry->user->documents && $enquiry->user->documents->all_documents_verified)
-                    <button type="submit" class="w-full flex items-center justify-center px-4 py-3 border-2 font-bold rounded-lg bg-[#33ea93] text-white transition-all">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Documents uploaded and Verified
-                    </button>
+                    @else
+                        <button type="submit" class="w-full flex items-center justify-center px-4 py-3 border-2 font-bold rounded-lg border-[#33ea93] text-[#33ea93] transition-all">
+                            Sent document prompt
+                        </button>
+                    @endif
+
 
                 @else
                     <form action="{{ route('provider.enquiry.request.documents.upload', $enquiry->id) }}" method="POST">
@@ -129,14 +132,16 @@
                         User is Tenant
                     </button>
                 @else
-                    <form action="{{ route('provider.enquiry.mark.potential.tenant', $enquiry->id) }}" method="POST">
-                        @csrf
-                        @method('POST')
-                        <button type="submit" class="w-full flex items-center justify-center px-4 py-3 border-2 border-purple-600 text-purple-600 font-bold rounded-lg hover:bg-purple-600 hover:text-white transition-all">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Mark Tenant
-                        </button>
-                    </form>
+                    @if ($enquiry->user->documents->all_documents_verified)
+                        <form action="{{ route('provider.enquiry.mark.potential.tenant', $enquiry->id) }}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="w-full flex items-center justify-center px-4 py-3 border-2 border-purple-600 text-purple-600 font-bold rounded-lg hover:bg-purple-600 hover:text-white transition-all">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Mark Tenant
+                            </button>
+                        </form>
+                    @endif
                 @endif
             </div>
 
@@ -147,9 +152,7 @@
             <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
                 <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4">Client Information</h3>
                 <div class="flex items-center mb-4">
-                    <div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-xl">
-                        <img class="w-full h-full rounded-full" src="{{ $avatar ? asset('storage/avatars/'. $avatar) : substr($enquiry->user->name, 0, 1) }}" >
-                    </div>
+                    @include('components.user-avatar', ['user' => $enquiry->user, 'size' => '3rem'])
                     <div class="ml-3">
                         <p class="text-sm font-bold text-gray-800">{{ $enquiry->user->name }}</p>
                         <p class="text-xs text-gray-500">Registered Client</p>

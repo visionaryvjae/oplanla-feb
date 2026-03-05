@@ -32,4 +32,6 @@ Route::middleware(['auth:web'])->prefix('tenant')->name('tenant.')->group(functi
     Route::get('upload-documents', [DocumentsController::class, 'documentUpload'])->name('documents.upload');
 
     Route::post('verify-store', [DocumentsController::class, 'verifyStore'])->name('verify.store');
+    Route::post('verify-update', [DocumentsController::class, 'verifyUpdate'])->name('verify.update');
+    Route::get('document-show', [DocumentsController::class, 'showDocument'])->name('doc.show');
 }); 

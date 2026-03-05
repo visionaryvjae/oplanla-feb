@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\AdminEnquiryReplyNotification;
 use App\Models\Booking\TenantDocuments;
+use App\Models\Booking\Tenant;
 use App\Notifications\UploadDocumentsNotification;
+use App\Notifications\MakeTenantNotification;
 
 class EnquiryResponseController extends Controller
 {
@@ -90,6 +92,16 @@ class EnquiryResponseController extends Controller
         $client->update(['role' => 'tenant', 'room_id' => $enquiry->rooms_id]);
         $client->save();
 
+        $tenant = Tenant::create([
+            'user_id' => $client->id,
+            'provider_id' => $enquiry->room->provider->id,
+            'property_id' => $enquiry->room->property->id ?? null,
+            'room_id' => $enquiry->rooms_id,
+            'stay_start' => now()
+        ]);
+
+        $client->notify(new MakeTenantNotification($tenant));
+
         return back()->with('success', 'Client marked as tenant successfully!');
     }
 
@@ -102,6 +114,7 @@ class EnquiryResponseController extends Controller
 
         $documents = TenantDocuments::create([
             'users_id' => $client->id,
+            'enquiry_id' => $enquiryId,
         ]);
 
         $client->notify(new UploadDocumentsNotification($documents));

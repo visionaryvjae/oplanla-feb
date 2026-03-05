@@ -3,6 +3,7 @@
 namespace App\Models\Booking;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;    
 
 class Tenant extends Model
 {

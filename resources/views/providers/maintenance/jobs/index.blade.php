@@ -10,7 +10,7 @@
             <h3 class="font-black text-gray-400 uppercase text-xs tracking-widest px-2 flex justify-between">
                 New Requests <span>({{ $jobs->count()}})</span>
             </h3>
-            <div class="flex justify-center items-center overflow-x-auto gap-4">
+            <div class="flex items-center overflow-x-auto gap-4">
                 @forelse ($jobs as $job)
                     <div class="max-w-lg bg-white p-4 rounded-2xl shadow-sm border border-l-4 border-l-[#ad68e4] hover:shadow-md transition">
                         <div class="flex flex-col md:flex-row md:space-x-4 space-y-4">
