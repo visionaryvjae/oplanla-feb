@@ -13,6 +13,9 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $maintenanceUser = Auth::user();
+
+        $tickets = MaintenanceTicket::where('maintenance_user_id', $maintenanceUser->id)->get();    
+        // dd($tickets, $maintenanceUser->id);
         
         // 1. Upcoming: Jobs scheduled for the future or newly assigned
         $upcoming = MaintenanceTicket::where('maintenance_user_id', $maintenanceUser->id)
@@ -41,6 +44,6 @@ class DashboardController extends Controller
             'pending_actions' => $missingDetails->count()
         ];
 
-        return view('technicians.dashboard', compact('upcoming', 'missingDetails', 'stats'));
+        return view('technicians.dashboard', compact('upcoming', 'missingDetails', 'stats', 'tickets'));
     }
 }
