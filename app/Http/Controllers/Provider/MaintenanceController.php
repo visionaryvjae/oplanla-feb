@@ -7,15 +7,32 @@ use Illuminate\Http\Request;
 use App\Models\Booking\MaintenanceJob;
 use App\Models\Booking\MaintenanceTicket;
 use App\Models\Booking\MaintenanceUser;
+use Illuminate\Support\Facades\Auth;
 
 class MaintenanceController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = MaintenanceJob::where('status', 'pending')->get();
-        $tickets = MaintenanceTicket::all();   
-        return view('providers.maintenance.jobs.index', compact('jobs', 'tickets'));
+        $providerId = Auth::guard('provider')->user()->provider->id;
+
+        $query = MaintenanceJob::query();
+        $query->whereHas('room.provider', function($q) use($providerId) {
+            $q->where('id', $providerId);
+        });
+
+
+        $query->orderBy('status', 'desc');
+
+        $jobs = $query->latest()->paginate(9);
+        return view('providers.maintenance.jobs.index', compact('jobs'));
+    }
+
+    public function show(int $jobId)
+    {
+        $job = MaintenanceJob::findOrFail($jobId);
+        $technicians = MaintenanceUser::where('providers_id', Auth::guard('provider')->user()->provider->id)->get();
+        return view('providers.maintenance.jobs.show', compact('job', 'technicians'));
     }
 
     public function createTicket(int $jobId)
@@ -30,6 +47,7 @@ class MaintenanceController extends Controller
 
     public function assignTicket(Request $request, MaintenanceJob $job)
     {
+        // dd($request);
         $job->update(['status' => 'assigned']);
 
         MaintenanceTicket::create([
@@ -42,6 +60,6 @@ class MaintenanceController extends Controller
             'status' => 'in_progress'
         ]);
 
-        return redirect()->route('provider.maintenance.index')->with('success', 'Job assigned to maintenance staff.');
+        return redirect()->route('provider.maintenance.jobs.index')->with('success', 'Job assigned to maintenance staff.');
     }
 }

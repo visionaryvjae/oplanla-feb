@@ -26,7 +26,7 @@
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200">
-                            <table class="min-w-full divide-y divide-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200 hidden md:table">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Potential Tenant</th>
@@ -79,6 +79,84 @@
                                     @endforelse
                                 </tbody>
                             </table>
+
+                            {{-- Mobile Card Layouts --}}
+                            <div class="grid grid-cols-1 gap-4 md:hidden px-4 mt-6">
+                                @forelse ($tenant_documents as $documents)
+                                    <div class="flex flex-col justify-end bg-white p-4 rounded-lg shadow-md space-y-3 border">
+                                        <div class="mb-4">
+                                            <div class="flex items-center  justify-between">
+                                                <div class="flex items-center  justify-start space-x-2">
+                                                    @include('components.user-avatar', ['user' => $documents->enquiry->user, 'size' => '2.5rem'])
+                                                    <div class="flex flex-col">
+                                                        <p class="text-xs text-gray-600">#{{ $documents->enquiry->user->id }}</p>
+                                                        <p class="text-lg font-semibold text-[#7f4ea8]">{{ $documents->enquiry->user->name }}</p>
+                                                    </div>
+                                                </div>
+                                                @if ($documents->all_documents_verified)
+                                                    <span class="{{ $size ?? 'px-2' }} inline-flex {{ $txtSize ?? 'text-sm' }} leading-5 font-semibold rounded-full bg-green-100 text-green-800">Documents Verified</span>
+                                                @else
+                                                    <span class="{{ $size ?? 'px-2' }} inline-flex {{ $txtSize ?? 'text-sm' }} leading-5 font-semibold rounded-full bg-red-100 text-red-800">Documents Not Verified</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-2 px-3 mb-3">
+                                            <span class="flex items-center justify-start {{ $documents->id_copy ? 'text-[#469873]' : 'text-[#e468ad]' }}">ID Copy @if ($documents->id_copy)
+                                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: #68E4AD;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></svg>
+                                                @else
+                                                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#f46899" d="M504.6 148.5C515.9 134.9 514.1 114.7 500.5 103.4C486.9 92.1 466.7 93.9 455.4 107.5L320 270L184.6 107.5C173.3 93.9 153.1 92.1 139.5 103.4C125.9 114.7 124.1 134.9 135.4 148.5L278.3 320L135.4 491.5C124.1 505.1 125.9 525.3 139.5 536.6C153.1 547.9 173.3 546.1 184.6 532.5L320 370L455.4 532.5C466.7 546.1 486.9 547.9 500.5 536.6C514.1 525.3 515.9 505.1 504.6 491.5L361.7 320L504.6 148.5z"/></svg>
+                                            @endif</span>
+                                            <span class="flex items-center justify-start {{ $documents->pay_slips ? 'text-[#469873]' : 'text-[#e468ad]' }}">Pay slips @if ($documents->pay_slips)
+                                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: #68E4AD;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></svg>
+                                            @else
+                                                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#f46899" d="M504.6 148.5C515.9 134.9 514.1 114.7 500.5 103.4C486.9 92.1 466.7 93.9 455.4 107.5L320 270L184.6 107.5C173.3 93.9 153.1 92.1 139.5 103.4C125.9 114.7 124.1 134.9 135.4 148.5L278.3 320L135.4 491.5C124.1 505.1 125.9 525.3 139.5 536.6C153.1 547.9 173.3 546.1 184.6 532.5L320 370L455.4 532.5C466.7 546.1 486.9 547.9 500.5 536.6C514.1 525.3 515.9 505.1 504.6 491.5L361.7 320L504.6 148.5z"/></svg>
+                                            @endif</span>
+                                            <span class="flex items-center justify-start {{ $documents->bank_statements ? 'text-[#469873]' : 'text-[#e468ad]' }}">bank statments @if ($documents->bank_statements)
+                                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: #68E4AD;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></svg>
+                                            @else
+                                                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#f46899" d="M504.6 148.5C515.9 134.9 514.1 114.7 500.5 103.4C486.9 92.1 466.7 93.9 455.4 107.5L320 270L184.6 107.5C173.3 93.9 153.1 92.1 139.5 103.4C125.9 114.7 124.1 134.9 135.4 148.5L278.3 320L135.4 491.5C124.1 505.1 125.9 525.3 139.5 536.6C153.1 547.9 173.3 546.1 184.6 532.5L320 370L455.4 532.5C466.7 546.1 486.9 547.9 500.5 536.6C514.1 525.3 515.9 505.1 504.6 491.5L361.7 320L504.6 148.5z"/></svg>
+                                            @endif</span>
+                                            <span class="flex items-center justify-start {{ $documents->proof_of_address ? 'text-[#469873]' : 'text-[#e468ad]' }}">proof of address @if ($documents->proof_of_address)
+                                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: #68E4AD;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></svg>
+                                            @else
+                                                <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#f46899" d="M504.6 148.5C515.9 134.9 514.1 114.7 500.5 103.4C486.9 92.1 466.7 93.9 455.4 107.5L320 270L184.6 107.5C173.3 93.9 153.1 92.1 139.5 103.4C125.9 114.7 124.1 134.9 135.4 148.5L278.3 320L135.4 491.5C124.1 505.1 125.9 525.3 139.5 536.6C153.1 547.9 173.3 546.1 184.6 532.5L320 370L455.4 532.5C466.7 546.1 486.9 547.9 500.5 536.6C514.1 525.3 515.9 505.1 504.6 491.5L361.7 320L504.6 148.5z"/></svg>
+                                            @endif</span>
+                                        </div>
+                                        <div class="flex items-center  justify-end space-x-2 border-t py-3">
+                                            <a href="{{ route('provider.potential-tenant.show', $documents->id) }}" class="text-indigo-600 hover:text-indigo-900" onclick="event.stopPropagation();">View documents</a>
+                                            @if ($documents->all_documents_verified)
+                                                <a href="{{ route('provider.enquiry.show', $documents->enquiry_id) }}" class="text-[#46e54f] hover:text-[#2e8131]" onclick="event.stopPropagation();">Go to Enquiry</a>
+                                            @endif
+                                        </div>  
+                                        {{-- <div class="flex flex-col px-4 space-y-2">
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-xs text-gray-600">Room number:</p>
+                                                <p class="text-sm text-gray-800">{{ $tenant->room->room_number }}</p>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-xs text-gray-600">Email:</p>
+                                                <p class="text-sm text-gray-800">{{ $tenant->email }}</p>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-xs text-gray-600">Property:</p>
+                                                <p class="text-sm text-gray-800">{{ $tenant->room->property->name ?? $tenant->room->provider->provider_name }}</p>
+                                            </div>
+                                        </div> --}}
+                                        {{-- <div class="flex justify-end space-x-4 pt-2">
+                                            <a href="{{ route('provider.tenants.edit', $tenant) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">Edit</a>
+                                            <form action="{{ route('provider.tenants.destroy', $tenant) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Delete</button>
+                                            </form>
+                                        </div> --}}
+                                    </div>
+                                @empty
+                                    <div class="py-4 px-6 text-center text-gray-600">
+                                        No tenants found.
+                                    </div>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>

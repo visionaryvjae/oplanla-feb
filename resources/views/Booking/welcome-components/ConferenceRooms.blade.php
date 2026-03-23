@@ -57,7 +57,7 @@
                 @foreach ($provinceTitle as $index => $type)
                     <form action="{{ route('handle-conference-click') }}" method="GET">
                         <button class="flex-shrink-0 w-64 hover:scale-105" type="submit" >
-                            <div class="bg-white rounded-lg shadow-md overflow-hidden" style="background-color:#68e4ad max-width: 256px; maxa-height: 300px; object-fit: cover; ">
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden" style="background-color:#68e4ad max-width: 256px; max-height: 300px; object-fit: cover; ">
                                 <img src="{{ asset('storage/images/'. $provinceTypes[$index] . '.jpg') }}" alt="https://placehold.co/400x300/F472B6/FFFFFF?text={{$type}}" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-semibold text-lg text-gray-800">{{ $type }}</h3>

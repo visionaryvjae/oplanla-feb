@@ -9,7 +9,7 @@ class MaintenanceTicket extends Model
     protected $fillable = [
         'maintenance_job_id',
         'maintenance_user_id',
-        'earliest_started_date',
+        'earliest_start_date',
         'latest_completion_date',
         'completed_at',
         'photo_url',

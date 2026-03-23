@@ -84,6 +84,9 @@
             <x-responsive-nav-link :href="route('technician.dashboard')" :active="request()->routeIs('technician.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('technician.tickets.index')" :active="request()->routeIs('technician.tickets.index')">
+                {{ __('All Tickets') }}
+            </x-responsive-nav-link>
             
         </div>
 

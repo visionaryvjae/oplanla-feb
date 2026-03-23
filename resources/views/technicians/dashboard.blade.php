@@ -83,23 +83,23 @@
         @php
             // dd($tickets);
         @endphp
-        <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @forelse($tickets as $ticket)
             {{-- Ticket Card --}}
             <div class="flex flex-col md:flex-row md:items-center justify-between px-4 py-4 rounded-3xl transition-all border-2  {{ $ticket->status == 'in_progress' ? 'border-orange-100 bg-orange-50/20' : 'border-gray-50 bg-white hover:border-[#ad68e4]/20' }}">
-                <div class="grid grid-cols-3 gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="flex w-32 h-32 overflow-hidden">
                         <img src="{{ $ticket->job->photo_url ? asset('storage/maintenance/' . $ticket->job->photo_url) : 'https://placehold.co/800x800/ceffe8/38ee81?text='.$ticket->job->category }}" alt="" class="w-32 h-32 rounded-lg object-cover">
                     </div>
-                    <div class="flex flex-col space-y-4 items-start col-span-2">
-                        <div class="w-full ">
+                    <div class="flex flex-col space-y-4 items-start md:col-span-2">
+                        <div class="w-full">
                             @include('components.status-toast', ['item' => $ticket])
                         </div>    
                         <div class="w-full ">
-                            <div class="flex items-center gap-2 mb-1">
+                            <div class="flex flex-col md:flex-row md:items-center gap-2 mb-1">
                                 <h4 class="font-black text-gray-900">{{ $ticket->job->title ?? 'Maintenance Task' }}</h4>
                                 @if($ticket->status == 'in_progress')
-                                    <span class="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest">Urgent</span>
+                                    <span class="md:bg-orange-500 text-orange-500 md:text-white text-[10px] md:px-2 md:py-0.5 rounded-full font-black uppercase tracking-widest">Urgent</span>
                                 @endif
                             </div>
                             <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-400 font-bold uppercase tracking-wider">
@@ -116,10 +116,16 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4 mt-4 md:mt-0">
-                    <a href="{{ route('technician.tickets.show', $ticket->id) }}" class="px-4 py-2  border-gray-100 hover:border-[#ad68e4] hover:bg-[#ad68e4] hover:text-white rounded-xl text-xs font-black text-gray-600 transition-all active:scale-95">
+                <div class="flex sm:flex-row md:flex-col md:space-y-2 items-center gap-4 mt-4 md:mt-0">
+                    
+                    <a href="{{ route('technician.tickets.show', $ticket->id) }}" class="flex items-center justify-center p-2 md:px-4 md:py-2  border-gray-100 border rounded-md hover:border-[#ad68e4] hover:bg-[#ad68e4] hover:text-white text-xs font-black text-gray-600 transition-all active:scale-95">
                         View Details
                     </a>
+                    @if ($ticket->completion_photo_path && !$ticket->completed_at)
+                        <a href="{{ route('technician.tickets.show', $ticket->id) }}" class="flex items-center justify-center p-2 md:px-4 md:py-2  border-gray-100 border rounded-md bg-[#ad68e4] text-white hover:border-white hover:bg-white hover:text-gray-600 text-xs font-black transition-all active:scale-95">
+                            Mark as Complete
+                        </a>
+                    @endif
                 </div>
             </div>
             @empty

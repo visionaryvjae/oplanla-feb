@@ -31,7 +31,12 @@ class DatabaseSeeder extends Seeder
         //     'provider_id' => 5,
         // ]);
 
-        MaintenanceUser::factory(7)->create();
+        MaintenanceUser::factory()->create([
+            'name' => 'Sonic D. Ajog',
+            'email' => 'oplanla1@gmail.com',
+            'password' => bcrypt('password'),
+            'specialty' => 'Electrical',
+        ]);
         // or
         // MaintenanceUser::factory()->plumber()->create();
     }

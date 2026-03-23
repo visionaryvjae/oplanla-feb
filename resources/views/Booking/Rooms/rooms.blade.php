@@ -134,10 +134,7 @@
                     </div>
                 @endforelse
             </div>
-            <!-- Pagination Links -->
-            <div class="pagination-links">
-                {!! $rooms->links() !!}
-            </div>
+            @include('components.pagination', ['items' => $rooms])
         </div>
 
         @push('styles') <!-- If your layout has a 'styles' section -->

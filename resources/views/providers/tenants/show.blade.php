@@ -143,7 +143,7 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 border-b whitespace-nowrap text-sm text-gray-700">
-                                        @include('components.status-toast', ['item' => $job])
+                                        @include('components.status-toast', ['item' => $job, 'uppercase' => ''])
                                     </td>
                                     <td class="px-6 py-4 border-b whitespace-nowrap text-sm text-gray-700">{{ $job->category }}</td>
                                     <td class="px-6 py-4 border-b whitespace-nowrap text-sm text-gray-700">{{ $job->created_at->format('M j, Y') }}</td>

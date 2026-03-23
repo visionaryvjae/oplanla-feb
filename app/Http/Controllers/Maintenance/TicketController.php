@@ -22,6 +22,13 @@ class TicketController extends Controller
         return view('technicians.tickets.index', compact('tickets'));
     }
 
+    public function show(int $ticketId)
+    {
+        $ticket = MaintenanceTicket::findOrFail($ticketId);
+
+        return view('technicians.tickets.show', compact('ticket'));
+    }
+
     public function uploadPhoto(Request $request, int $ticketId)
     {
         $ticket = MaintenanceTicket::findOrFail($ticketId);

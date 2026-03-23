@@ -20,6 +20,7 @@ use App\Http\Controllers\Provider\ChargeController;
 use App\Http\Controllers\Provider\PropertyController;
 use App\Http\Controllers\Provider\MeterController;
 use App\Http\Controllers\Provider\MaintenanceUserController;
+use App\Http\Controllers\Provider\TicketController;
 use App\Http\Controllers\Provider\TenantController;
 use App\Http\Controllers\Provider\PotentialTenantsController;
 
@@ -185,9 +186,17 @@ Route::prefix('provider/utilities')->name('provider.')->group(function() {
 Route::prefix('provider/maintenance')->name('provider.maintenance.')->group(function() {
     //Jobs
    Route::get('jobs', [MaintenanceController::class, 'index'])->name('jobs.index');
+   Route::get('jobs/{job}', [MaintenanceController::class, 'show'])->name('jobs.show');
    Route::get('jobs/{job}/create', [MaintenanceController::class, 'createTicket'])->name('create.ticket');
     // Manager assigns a staff member to a job (Creates Ticket)
     Route::post('/jobs/{job}/assign', [MaintenanceController::class, 'assignTicket'])->name('assign');
+})->middleware(['auth:provider']);
+
+//PROVIDER TICKET ROUTES
+Route::prefix('provider/maintenance')->name('provider.maintenance.')->group(function() {
+    //Jobs
+   Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
+   Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
 })->middleware(['auth:provider']);
 
 

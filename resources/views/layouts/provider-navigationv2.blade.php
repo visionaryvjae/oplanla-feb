@@ -35,7 +35,7 @@
                     </button>
                     <div class="absolute hidden group-hover:block w-48 bg-white shadow-xl rounded-lg mt-1 border py-2 z-50">
                         <a href="{{ route('provider.maintenance.jobs.index') }}" class="{{ request()->routeIs('provider.maintenance.jobs*') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 hover:bg-[#68e4ad]/10">Jobs (Requests)</a>
-                        <a href="#" class="{{ request()->routeIs('') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Active Tickets</a>
+                        <a href="{{ route('provider.maintenance.tickets.index') }}" class="{{ request()->routeIs('provider.maintenance.tickets*') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Active Tickets</a>
                         <a href="{{ route('provider.maintenance-users.index') }}" class="{{ request()->routeIs('provider.maintenance-users*') ? 'text-oplanla-purple font-bold' : 'text-gray-700' }} block px-4 py-2 text-gray-700 hover:bg-[#68e4ad]/10">Maintenance Users</a>
                     </div>
                 </div>
@@ -107,12 +107,17 @@
             <div class="px-4 py-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-1">Properties</div>
             <x-responsive-nav-link :href="route('provider.properties.index')" class="{{ request()->routeIs('provider.properties*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Properties</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('provider.rooms.index')" class="{{ request()->routeIs('provider.rooms*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Rooms & Units</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('provider.meters.index')" class="{{ request()->routeIs('provider.meters*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Meters</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('provider.enquiries.index')" class="{{ request()->routeIs('provider.enquiries*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Enquiries</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('provider.meters.index')" class="{{ request()->routeIs('provider.meters*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Meters</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('provider.tenants.index')" class="{{ request()->routeIs('provider.tenants*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Tenants</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('provider.potential-tenant.index')" class="{{ request()->routeIs('provider.potential-tenant *') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Potential Tenant Documents</x-responsive-nav-link>
+
+            
             
             <div class="px-4 py-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mt-4 mb-1">Maintenance</div>
-            <x-responsive-nav-link :href="route('provider.maintenance.jobs.index')" class="{{ request()->routeIs('provider.maintenance*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Jobs</x-responsive-nav-link>
-            <x-responsive-nav-link href="#" class="{{ request()->routeIs('') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Staff Management</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('provider.maintenance.jobs.index')" class="{{ request()->routeIs('provider.maintenance.jobs*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Maintenance Requests</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('provider.maintenance.tickets.index')" class="{{ request()->routeIs('provider.maintenance.tickets*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Tickets</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('provider.maintenance-users.index')" class="{{ request()->routeIs('provider.maintenance-users*') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Maintenance Users</x-responsive-nav-link>
 
             <div class="px-4 py-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mt-4 mb-1">Financials</div>
             <x-responsive-nav-link href="#" class="{{ request()->routeIs('') ? 'text-oplanla-purple border-l-2 border-purple-500 bg-purple-200' : '' }} font-black">Rent Ledger</x-responsive-nav-link>

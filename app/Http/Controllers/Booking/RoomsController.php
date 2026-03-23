@@ -36,7 +36,7 @@ class RoomsController extends Controller
             $search = '%' . $request->search . '%';
         
             $query->WhereHas('provider', function ($q) use ($search) {
-                $q->where('booking_address', 'like', $search)->orWhere('provider_name', 'like', $search);;
+                $q->where('booking_address', 'like', $search)->orWhere('provider_name', 'like', $search);
             });
         }
 
