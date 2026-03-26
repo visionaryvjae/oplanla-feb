@@ -55,6 +55,8 @@ require __DIR__.'/api/footer.php';
 
 require __DIR__.'/api/contact.php';
 
+require __DIR__.'/api/ozow.php';
+
 require __DIR__.'/tenants/tenant.php';
 
 require __DIR__.'/technicians/technician.php';

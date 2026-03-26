@@ -1,64 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Utility History - {{ $user->name }}</title>
     <style>
-        body { font-family: sans-serif; color: #333; }
-        .header { border-bottom: 2px solid {{ $color }}; padding-bottom: 10px; margin-bottom: 20px; }
-        .footer { position: fixed; bottom: 0; width: 100%; text-align: center; font-size: 10px; color: #999; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background-color: {{ $color }}; color: white; padding: 10px; text-align: left; }
-        td { padding: 10px; border-bottom: 1px solid #eee; }
-        .summary-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        @page { margin: 100px 25px; }
+        body { font-family: 'Helvetica', 'Arial', sans-serif; color: #1a202c; line-height: 1.5; }
+        
+        /* OPLANLA Brand Header */
+        .header { position: fixed; top: -60px; left: 0; right: 0; height: 50px; border-bottom: 2px solid #ad68e4; padding-bottom: 10px; }
+        .brand { font-size: 24px; font-weight: bold; color: #ad68e4; letter-spacing: -1px; }
+        .document-type { float: right; font-size: 14px; color: #718096; text-transform: uppercase; margin-top: 8px; }
+
+        /* Tenant & Property Info */
+        .info-section { margin-top: 20px; width: 100%; border-collapse: collapse; }
+        .info-box { width: 50%; vertical-align: top; }
+        .label { font-size: 10px; font-weight: bold; color: #a0aec0; text-transform: uppercase; margin-bottom: 4px; }
+        .value { font-size: 14px; font-weight: bold; color: #2d3748; }
+
+        /* Summary Highlights */
+        .summary-wrapper { margin-top: 30px; background-color: #fdfaff; padding: 20px; border-radius: 12px; border: 1px solid #f3e8ff; }
+        .summary-grid { width: 100%; border-collapse: collapse; }
+        .summary-item { text-align: left; }
+        .summary-amount { font-size: 18px; font-weight: bold; color: #ad68e4; }
+
+        /* Usage Table */
+        table.transactions { width: 100%; border-collapse: collapse; margin-top: 40px; }
+        th { background-color: #f7fafc; color: #4a5568; text-align: left; padding: 12px; font-size: 11px; text-transform: uppercase; border-bottom: 1px solid #edf2f7; }
+        td { padding: 12px; border-bottom: 1px solid #edf2f7; font-size: 12px; color: #4a5568; }
+        .text-right { text-align: right; }
+        .status-unpaid { color: #dc2626; font-weight: bold; }
+        .status-paid { color: #2d3748; }
+
+        .footer { position: fixed; bottom: -60px; left: 0; right: 0; height: 30px; font-size: 10px; color: #a0aec0; text-align: center; border-top: 1px solid #edf2f7; padding-top: 10px; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Utility Report</h1>
-        <p>Tenant: {{ $user->name }} | Room: {{ $user->room_id }}</p>
+        <span class="brand">OPLANLA</span>
+        <span class="document-type">Utility Usage History</span>
     </div>
 
-    <div class="summary-box">
-        <h3>Summary of Last Month</h3>
-        <p>Current Outstanding Balance: <strong>ZAR {{ number_format($user->room->totalCharges() ?? 0, 2) }}</strong></p> 
-        <p>Water Usage: <strong>{{ $user->room->waterMeter->lastReading->consumption ?? 0 }} KL</strong></p>
-        <p>Electricity Usage: <strong>{{ $user->room->electricityMeter->lastReading->consumption ?? 0 }} kWh</strong></p>
+    <table class="info-section">
+        <tr>
+            <td class="info-box">
+                <div class="label">Tenant Details</div>
+                <div class="value">{{ $user->name }}</div>
+                <div style="font-size: 12px; color: #718096;">Account ID: #{{ $user->id }}</div>
+            </td>
+            <td class="info-box" style="text-align: right;">
+                <div class="label">Property & Unit</div>
+                <div class="value">{{ $user->room->property->name ?? 'OPLANLA Property' }}</div>
+                <div style="font-size: 12px; color: #718096;">Unit {{ $user->room->room_number ?? $user->room_id }}</div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="summary-wrapper">
+        <table class="summary-grid">
+            <tr>
+                <td class="summary-item">
+                    <div class="label">Outstanding Balance</div>
+                    <div class="summary-amount">ZAR {{ number_format($user->room->totalCharges() ?? 0, 2) }}</div>
+                </td>
+                <td class="summary-item" style="text-align: right;">
+                    <div class="label">Utility Type</div>
+                    <div class="value" style="color: #ad68e4;">Water & Electricity</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <table>
+    <table class="transactions">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Meter Serial</th>
                 <th>Usage (KL/kWh)</th>
-                <th>Cost (ZAR)</th>
+                <th class="text-right">Cost (ZAR)</th>
             </tr>
         </thead>
         <tbody>
             @foreach($readings as $i => $reading)
-            
-            @php
-                // Find the charge created at the exact same time for this room
-                $specificCharge = $reading->charge;
-                
-                if($i < $readings->count()-2){
-                    // dd($readings->get($i-1));
-                    $consumption = number_format($reading->consumption, 2) ?? $reading->reading_value - $readings->get($i + 2)->reading_value ?? 0;; // Calculate consumption based on current and previous reading
-                }
-            @endphp
-            <tr>
-                <td>{{ $reading->created_at->format('d M Y') }}</td>
-                <td>{{ $reading->meter->serial_number ?? 'MTR-ROOM-02' }}</td>
-                <td>{{ number_format($reading->consumption ?? $consumption, 2) }}</td>
-                <td style="color: {{ $specificCharge ? ($specificCharge->is_paid == 0 ? 'red' : 'black') : '#333' }};">
-                    ZAR {{ number_format($specificCharge->amount ?? 0, 2) }}
-                </td>
-            </tr>
+                @php
+                    $specificCharge = $reading->charge;
+                    $consumption = 0;
+                    if($i < $readings->count() - 2) {
+                        $consumption = $reading->consumption ?? ($reading->reading_value - ($readings->get($i + 2)->reading_value ?? 0));
+                    }
+                @endphp
+                <tr>
+                    <td>{{ $reading->created_at->format('d M Y') }}</td>
+                    <td style="font-family: monospace;">{{ $reading->meter->serial_number ?? 'MTR-ROOM-'.$user->room_id }}</td>
+                    <td>{{ number_format($reading->consumption ?? $consumption, 2) }}</td>
+                    <td class="text-right {{ $specificCharge && $specificCharge->is_paid == 0 ? 'status-unpaid' : 'status-paid' }}">
+                        ZAR {{ number_format($specificCharge->amount ?? 0, 2) }}
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
 
     <div class="footer">
-        Generated by OPLANLA PMS on {{ $date }}
+        Generated by OPLANLA PMS on {{ now()->format('d M Y, H:i') }} - This document provides a verified history of utility consumption and associated billing.
     </div>
 </body>
 </html>

@@ -23,6 +23,8 @@ use App\Http\Controllers\Provider\MaintenanceUserController;
 use App\Http\Controllers\Provider\TicketController;
 use App\Http\Controllers\Provider\TenantController;
 use App\Http\Controllers\Provider\PotentialTenantsController;
+use App\Http\Controllers\Provider\BulkNotificationController;
+use App\Http\Controllers\Provider\RentalPaymentController;
 
 
 // Provider Routes
@@ -166,13 +168,29 @@ Route::middleware(['auth:provider'])->group(function() {
 // --- PROVIDER REPORTING ROUTES ---
 // Assuming you have a group for authenticated provider users
 Route::prefix('provider')->name('provider.')->group(function () {
-    // ... your other provider routes
+    // ... your other provider routes 
 
     // NEW: Provider-specific Reporting Route
     Route::get('reports', [ProviderReportController::class, 'providerReports'])->name('reports.index');
 })->middleware(['auth:provider']);
 
 
+//PROVIDER PAYMENTS ROUTES
+Route::prefix('provider/payments')->name('provider.payments.')->group(function() {
+    Route::get('/', [RentalPaymentController::class, 'index'])->name('index');
+    Route::get('/payments/{id}', [RentalPaymentController::class, 'show'])->name('show');
+    Route::get('/pending', [RentalPaymentController::class, 'pending'])->name('pending');
+    // Provider Payment Inspection Routes 
+    Route::post('/payments/{id}/verify', [RentalPaymentController::class, 'verify'])->name('verify');
+    Route::get('/payments/{id}/view', [RentalPaymentController::class, 'view'])->name('view');
+    Route::get('/payments/{id}/stream', [RentalPaymentController::class, 'streamPoP'])->name('stream');
+})->middleware(['auth:provider']);
+
+// Provider Payment Reports
+Route::middleware(['auth:provider'])->prefix('provider')->group(function () {
+    Route::get('/reports/payments/download', [ReportController::class, 'downloadPaymentReport'])
+        ->name('provider.reports.payments.download');
+});
 
 //PROVIDER UTILITIES ROUTES
 Route::prefix('provider/utilities')->name('provider.')->group(function() {
@@ -224,6 +242,13 @@ Route::prefix('provider')->name('provider.')->group(function () {
 
     Route::post('meters/update/{meter}', [MeterController::class, 'update'])->name('meters.update');
 });
+
+
+//PROVIDER BULK NOTIFICATIONS
+Route::prefix('provider/bulk-notifications')->name('provider.bulk.notifications.')->group(function() {
+    Route::get('/', [BulkNotificationController::class, 'index'])->name('index');
+    Route::post('send', [BulkNotificationController::class, 'send'])->name('send');
+})->middleware(['auth:provider']);
 
 
 // --- Separate routes for Maintenance Staff & Tenants ---

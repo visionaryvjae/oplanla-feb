@@ -49,4 +49,14 @@ class Providers extends Model
     {
         return $this->hasMany(MaintenanceUser::class, 'providers_id');
     }
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'providers_id');
+    }
+
+    public function bankDetails()
+    {
+        return $this->hasOne(ProviderBankDetails::class, 'provider_id');
+    }
 }

@@ -19,6 +19,6 @@ class BankDetail extends Model
 
     public function provider()
     {
-        return $this->belongTo(Provider::class, 'providers_id');    
+        return $this->belongsTo(Providers::class, 'providers_id');    
     }
 }

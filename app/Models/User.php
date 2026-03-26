@@ -68,6 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Tenant::class, 'user_id');
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'tenant_id');
+    }
     
 
     public function isTenant()

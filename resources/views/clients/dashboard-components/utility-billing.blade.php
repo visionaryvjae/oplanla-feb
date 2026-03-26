@@ -72,8 +72,14 @@
 
     <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-100 flex flex-col">
         <div class="p-8 flex-grow">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6" style="font-size:1.5rem; font-weight:600;">Billing Overview</h2>
-            
+            <div class="flex flex-col md:flex-row items-center md:justify-between">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6" style="font-size:1.5rem; font-weight:600;">Billing Overview</h2>
+                <a href="{{ route('tenant.reports.statement.download') }}" 
+                class="text-purple-600 font-semibold text-sm hover:underline" 
+                style="color: #ad68e4;">
+                Download My Statement (PDF)
+                </a>
+            </div>
             <div class="mt-4 p-6 rounded-2xl border-2 border-dashed border-gray-100 flex flex-col items-center justify-center text-center">
                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Current Status</p>
                 
@@ -81,7 +87,7 @@
                     $isPaid = true; 
                 @endphp 
                 
-                @if($billing && $billing->is_paid)
+                @if($room->totalCharges() == 0)
                     <div class="flex items-center text-green-600">
                         <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                         <span class="text-2xl font-black italic">All bills up to date.</span>
@@ -98,7 +104,7 @@
         </div>
 
         <div class="p-6 bg-gray-50 border-t border-gray-100">
-            <a href="" class="block w-full text-center py-3 font-bold rounded-md border border-[#ad68e4] transition-colors hover:bg-purple-50" style="color: #ad68e4;">
+            <a href="{{ route('tenant.billings.index') }}" class="block w-full text-center py-3 font-bold rounded-md border border-[#ad68e4] transition-colors hover:bg-purple-50" style="color: #ad68e4;">
                 View Billing & Payment History
             </a>
         </div>

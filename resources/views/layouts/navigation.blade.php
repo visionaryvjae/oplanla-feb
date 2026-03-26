@@ -27,6 +27,10 @@
         }
     </style>
 
+    @php
+        $user = Auth::guard('web')->user();
+    @endphp
+
     <!-- Primary Navigation Menu -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div 
@@ -40,14 +44,12 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('room.booking') }}" class="flex flex-col items-center justify-center">
+                    <a href="{{ $user->role == 'tenant' ? route('tenant.dashboard') :route('room.booking') }}" class="flex flex-col items-center justify-center">
                         <img width="60" height="60" src="{{ asset('storage/icons/logo.png') }}" alt="geography" />
                     </a>
                 </div>
 
-                @php
-                    $user = Auth::guard('web')->user();
-                @endphp
+                
             </div>
 
             <!-- Settings Dropdown -->
@@ -76,7 +78,7 @@
                             Register
                         </a>
                     @else
-                        <a href="{{ route('dashboard') }}" class="nav-label inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('dashboard') ? 'nav-label-focus' : 'nav-label' }} text-sm font-medium leading-5 transition duration-150 ease-in-out"
+                        <a href="{{ $user->role == 'tenant' ? route('tenant.dashboard') : route('dashboard') }}" class="nav-label inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('dashboard') ? 'nav-label-focus' : 'nav-label' }} text-sm font-medium leading-5 transition duration-150 ease-in-out"
                             style="color: "
                         >
                             Dashboard
@@ -86,7 +88,7 @@
                         >
                             Rooms
                         </a>
-                        <a href="{{ route('tenant.documents.upload') }}" class="nav-label inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('rooms.landing') || request()->routeIs('room.show') ? 'nav-label-focus' : 'nav-label' }} text-sm font-medium leading-5 transition duration-150 ease-in-out"
+                        <a href="{{ route('tenant.documents.upload') }}" class="nav-label inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('tenant.documents*') ? 'nav-label-focus' : 'nav-label' }} text-sm font-medium leading-5 transition duration-150 ease-in-out"
                             style="color: "
                         >
                             Upload Documents
@@ -173,7 +175,7 @@
                     Register
                 </a>
             @else
-                <a href="{{ route('dashboard') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('dashboard') ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium transition">
+                <a href="{{ $user->role == 'tenant' ? route('tenant.dashboard') : route('dashboard') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('dashboard') ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium transition">
                     Dashboard
                 </a>
                 <a href="{{ route('rooms.landing') }}" class="block pl-3 pr-4 py-2 border-l-4 {{ request()->routeIs('rooms.index') ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }} text-base font-medium transition">

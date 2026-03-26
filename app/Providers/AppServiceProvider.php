@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade; 
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
@@ -10,6 +11,7 @@ use App\Models\Booking\MaintenanceJob;
 use App\Models\Booking\MaintenanceTicket;
 use App\Observers\MaintenanceTicketObserver;
 use App\Observers\MaintenanceJobObserver;
+// use App\Helpers\DateHelper;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,6 +40,16 @@ class AppServiceProvider extends ServiceProvider
             
             // Default redirection for 'web' guard or others
             return route('dashboard'); // Or 'home', depending on your user routes
+        });
+
+        // Full format
+        Blade::directive('formatDays', function ($expression) {
+            return "<?php echo \App\Helpers\DateHelper::formatDays($expression); ?>";
+        });
+
+        // Compact format
+        Blade::directive('formatDaysCompact', function ($expression) {
+            return "<?php echo \App\Helpers\DateHelper::formatDaysCompact($expression); ?>";
         });
     }
 }
