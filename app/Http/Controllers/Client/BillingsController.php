@@ -18,7 +18,7 @@ class BillingsController extends Controller
         $query = Charge::query();
         $query->where('rooms_id', $tenant->room->id)->orderby('is_paid');
 
-        if($request->filled('type[]')){
+        if($request->filled('type')){
             $query->whereIn('type', $request->type);
         }
 

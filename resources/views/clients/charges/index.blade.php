@@ -8,7 +8,7 @@
 
 <div class="max-w-7xl container mx-auto p-6">
     @include('components.page-feedback')
-    @include('components.back-button', ['title' => 'dashboard', 'route' => route('dashboard')])
+    @include('components.back-button', ['title' => 'dashboard', 'route' => route('tenant.dashboard')])
     <div class="bg-white p-6 mb-8 border border-gray-100" style="border-radius: 20px;">
         <div class="flex justify-between items-center">
             <div>

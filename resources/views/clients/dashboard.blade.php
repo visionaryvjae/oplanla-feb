@@ -46,7 +46,7 @@
                 @if ($daysRemaining > 0)
                     @formatDays($daysRemaining) left
                 @else
-                    {{'Term Complete'}}
+                    {{'Term Complete'}} 
                 @endif
             </h3>
             

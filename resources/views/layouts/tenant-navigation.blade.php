@@ -14,13 +14,13 @@
     <!-- Primary Navigation Menu -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 overflow-hidden"> 
-            <div class="flex">
+            <div class="flex flex-col justify-center">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    {{-- <a href="{{ route('dashboard') }}">
-                        <img height="50" width="50" src="{{ asset('storage/icons/logo.png') }}" alt="Oplanla Logo" class="block h-9 w-auto">
-                    </a> --}}
-                    <h1 class="text-xl font-bold text-black">OPLANLA</h1>
+                <div class="shrink-0 items-center justify-center flexS">
+                    <a href="{{ route('tenant.dashboard') }}">
+                        <img height="100" width="100" src="{{ asset('storage/icons/logo-black.png') }}" alt="Oplanla Logo" class="block h-16 w-auto">
+                    </a>
+                    {{-- <h1 class="text-xl font-bold text-black">OPLANLA</h1> --}}
                 </div>
             </div>
 
@@ -34,17 +34,23 @@
 
                         $user = Auth::guard('web')->user();
                     @endphp
-                    <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? $activeLinkClasses : $inactiveLinkClasses }}">
-                        {{ __('Dashboard') }}
+                    <a href="{{ route('tenant.dashboard') }}" class="{{ request()->routeIs('tenant.dashboard') ? $activeLinkClasses : $inactiveLinkClasses }}">
+                        {{ __('Dashboard') }} 
                     </a>
-                    <a href="{{ route('rooms.landing') }}" class="{{ request()->routeIs('rooms.landing') || request()->routeIs('room.show') ? $activeLinkClasses : $inactiveLinkClasses }}">
-                        {{ __('Bookings') }}
+                    <a href="{{ route('tenant.maintenance.index', $user->room->id) }}" class="{{ request()->routeIs('tenant.maintenance*') ? $activeLinkClasses : $inactiveLinkClasses }}">
+                        {{ __('Maintenance') }}
+                    </a>
+                    <a href="{{ route('tenant.billings.index', $user->room->id) }}" class="{{ request()->routeIs('tenant.billings*') ? $activeLinkClasses : $inactiveLinkClasses }}">
+                        {{ __('Billing') }}
                     </a>
                     <a href="{{ route('tenant.room.show', $user->room->id) }}" class="{{ request()->routeIs('tenant.room*') ? $activeLinkClasses : $inactiveLinkClasses }}">
                         {{ __('My Room') }}
                     </a>
                     <a href="{{ route('tenant.documents.upload') }}" class="{{ request()->routeIs('tenant.documents.upload*') ? $activeLinkClasses : $inactiveLinkClasses }}">
                         {{ __('My Documents') }}
+                    </a>
+                    <a href="{{ route('rooms.landing') }}" class="{{ request()->routeIs('rooms.landing') || request()->routeIs('room.show') ? $activeLinkClasses : $inactiveLinkClasses }}">
+                        {{ __('Bookings') }}
                     </a>
                     {{-- <a href="{{ route('room.booking.index.tenant') }}" class="{{ request()->routeIs('room.booking.index.tenant*') ? $activeLinkClasses : $inactiveLinkClasses }}">
                             {{ __('All Bookings') }}
@@ -116,7 +122,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('tenant.dashboard')" :active="request()->routeIs('tenant.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             
